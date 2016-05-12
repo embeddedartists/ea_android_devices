@@ -29,3 +29,4 @@
 PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/imx6sxea_com_kit/imx6sxea_com_kit.mk \
   $(LOCAL_DIR)/imx6qea_com_kit/imx6qea_com_kit.mk \
+  $(LOCAL_DIR)/imx7dea_ucom_kit/imx7dea_ucom_kit.mk \

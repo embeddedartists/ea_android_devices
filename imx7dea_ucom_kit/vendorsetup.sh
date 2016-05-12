@@ -1,0 +1,3 @@
+
+add_lunch_combo imx7dea_ucom_kit-eng
+add_lunch_combo imx7dea_ucom_kit-user
