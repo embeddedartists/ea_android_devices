@@ -111,7 +111,7 @@ on boot
     setprop ro.sf.hwrotation 0
 
     # Set the density to 120dpi for 640x480 lcd panel
-    setprop ro.sf.lcd_density 120
+    setprop ro.sf.lcd_density 160
 
     # Set sys.device.type to tablet to enable NavigationBar
     setprop sys.device.type tablet
@@ -149,10 +149,10 @@ on boot
     setprop ro.ril.wake_lock_timeout 300
 
     # Default backlight device
-    setprop hw.backlight.dev "pwm-backlight.0"
+    setprop hw.backlight.dev "backlight.0"
     # Chmod/chown FSL specific sys entry
-    chown system system /sys/class/backlight/backlight.12/brightness
-    chmod 0660 /sys/class/backlight/backlight.12/brightness
+    chown system system /sys/class/backlight/backlight.0/brightness
+    chmod 0660 /sys/class/backlight/backlight.0/brightness
 
 
     # No bluetooth hardware present
@@ -243,12 +243,12 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     oneshot
 
 
-service sensor_fusion /system/bin/fsl_sensor_fusion
-    class late_start
-    seclabel u:r:sensors:s0
-    user system
-    group input
-    oneshot
+#service sensor_fusion /system/bin/fsl_sensor_fusion
+#    class late_start
+#    seclabel u:r:sensors:s0
+#    user system
+#    group input
+#    oneshot
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     class main
@@ -265,15 +265,15 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
+#EA service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+#EA    class main
+#EA    disabled
+#EA    oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
+#EA service iprenew_wlan0 /system/bin/dhcpcd -n
+#EA    class main
+#EA    disabled
+#EA    oneshot
 
 service iprenew_p2p /system/bin/dhcpcd -n
     class main
@@ -285,43 +285,43 @@ service iprenew_eth0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
+#EA service iprenew_bt-pan /system/bin/dhcpcd -n
+#EA    class main
+#EA    disabled
+#EA    oneshot
 
-service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
-    socket hostapd_wlan0 dgram 660 root wifi
-    user root
-    group wifi
-    oneshot
-    disabled
+#EA service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
+#EA    socket hostapd_wlan0 dgram 660 root wifi
+#EA    user root
+#EA    group wifi
+#EA    oneshot
+#EA    disabled
 
-service rtl_hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
-    socket hostapd_wlan0 dgram 660 root wifi
-    user root
-    group wifi
-    oneshot
-    disabled
+#EA service rtl_hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
+#EA    socket hostapd_wlan0 dgram 660 root wifi
+#EA    user root
+#EA    group wifi
+#EA    oneshot
+#EA    disabled
 
-service ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-   socket rild-debug stream 660 radio system
-    socket rild-ppp stream 660 radio system
-    user root
-    group radio cache inet misc audio sdcard_rw log
+#EA service ril-daemon /system/bin/rild
+#EA    class main
+#EA    socket rild stream 660 root radio
+#EA   socket rild-debug stream 660 radio system
+#EA    socket rild-ppp stream 660 radio system
+#EA    user root
+#EA    group radio cache inet misc audio sdcard_rw log
 
-service pppd_gprs /etc/ppp/init.gprs-pppd
-    class main
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
+#EA service pppd_gprs /etc/ppp/init.gprs-pppd
+#EA    class main
+#EA    user root
+#EA    group radio cache inet misc
+#EA    disabled
+#ea    oneshot
 
-service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
-    class late_start
-    oneshot
+#EA service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
+#EA    class late_start
+#EA    oneshot
 
 
 # virtual sdcard daemon running as media_rw (1023)

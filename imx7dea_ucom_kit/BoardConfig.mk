@@ -88,7 +88,7 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale 
 TARGET_BOOTLOADER_CONFIG := imx7d:mx7dea-ucom-android_config
-TARGET_BOARD_DTS_CONFIG := imx7d:imx7dea-ucom-kit.dtb
+TARGET_BOARD_DTS_CONFIG := imx7d:imx7dea-ucom-kit-lvds.dtb
 
 TARGET_KERNEL_DEFCONF := imx6_ea_android_defconfig
 

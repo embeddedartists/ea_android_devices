@@ -26,7 +26,7 @@ PRODUCT_COPY_FILES += \
 	device/embeddedartists/imx6qea_com_kit/ar1021_I2C_Touchscreen.idc:system/usr/idc/ar1021_I2C_Touchscreen.idc
 
 
-DEVICE_PACKAGE_OVERLAYS := device/fsl/sabresd_7d/overlay
+DEVICE_PACKAGE_OVERLAYS := device/embeddedartists/imx7dea_ucom_kit/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
