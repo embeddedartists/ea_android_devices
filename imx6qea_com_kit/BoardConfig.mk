@@ -5,12 +5,7 @@
 include device/fsl/imx6/soc/imx6dq.mk
 export BUILD_ID=1.0.0
 export BUILD_NUMBER=20160209
-include device/fsl/imx6/BoardConfigCommon.mk
-
-#override settings from BoardConfigCommon.mk
-BOARD_HAVE_BLUETOOTH := false
-BOARD_NOT_HAVE_MODEM := true
-BOARD_HAVE_IMX_CAMERA := false
+include device/embeddedartists/imx6qea_com_kit/BoardConfigCommon.mk
 
 include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 # sabresd_6dq default target for EXT4
@@ -25,24 +20,21 @@ PRODUCT_MODEL := IMX6QEA_COM_KIT
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx6
 
+#
+# WLAN settings. Realtek RTL8188CUS chipset tested and supported
+# D-Link N 150 Micro USB Adapter (DWA-121) has been used
+#
+
 BOARD_SUPPORT_BCM_WIFI  := false
+BOARD_HAVE_WIFI                  := true
+EA_BOARD_IGNORE_NL80211_CMD := true
 
-#for intel vendor
-#EA ifeq ($(BOARD_WLAN_VENDOR),INTEL)
-BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd
-WPA_SUPPLICANT_VERSION                   := VER_0_8_X
-HOSTAPD_VERSION                          := VER_0_8_X
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd_intel
-WIFI_DRIVER_MODULE_PATH                  := "/system/lib/modules/iwlagn.ko"
-WIFI_DRIVER_MODULE_NAME                  := "iwlagn"
-WIFI_DRIVER_MODULE_PATH                  ?= auto
-#EA endif
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 
-#EA WIFI_DRIVER_FW_PATH_STA        := "/system/etc/firmware/bcm/fw_bcmdhd.bin"
-#EA WIFI_DRIVER_FW_PATH_P2P        := "/system/etc/firmware/bcm/fw_bcmdhd.bin"
-#EA WIFI_DRIVER_FW_PATH_AP         := "/system/etc/firmware/bcm/fw_bcmdhd_apsta.bin"
-#EA WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL := lib_driver_cmd_rtl
+BOARD_WLAN_DEVICE                := REALTEK
+
 
 USE_ATHR_GPS_HARDWARE := false
 USE_QEMU_GPS_HARDWARE := false
@@ -95,8 +87,7 @@ TARGET_BOARD_DTS_CONFIG := imx6q:imx6qea-com-kit.dtb
 TARGET_KERNEL_DEFCONF := imx6_ea_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
-       device/fsl/imx6/sepolicy \
-       device/fsl/sabresd_6dq/sepolicy
+       device/embeddedartists/imx6qea_com_kit/sepolicy
 
 BOARD_SEPOLICY_UNION := \
        domain.te \

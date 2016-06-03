@@ -5,13 +5,9 @@
 include device/fsl/imx7/soc/imx7d.mk
 export BUILD_ID=1.0.0
 export BUILD_NUMBER=20160509
-include device/fsl/imx7/BoardConfigCommon.mk
+include device/embeddedartists/imx7dea_ucom_kit/BoardConfigCommon.mk
 
-#override settings from BoardConfigCommon.mk
-BOARD_HAVE_BLUETOOTH := false
-BOARD_NOT_HAVE_MODEM := true
-BOARD_HAVE_IMX_CAMERA := false
-TARGET_NO_RECOVERY := true
+#TARGET_NO_RECOVERY := true
 
 -include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 # sabresd_mx7d default target for EXT4
@@ -27,39 +23,22 @@ TARGET_BOOTLOADER_BOARD_NAME := IMX7DEA_UCOM_KIT
 PRODUCT_MODEL := IMX7DEA_UCOM_KIT
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx7
-# UNITE is a virtual device support both atheros and realtek wifi(ar6103 and rtl8723as)
-BOARD_WLAN_DEVICE            := UNITE
-WPA_SUPPLICANT_VERSION       := VER_0_8_UNITE
-TARGET_KERNEL_MODULES        := \
-                                kernel_imx/net/wireless/cfg80211.ko:system/lib/modules/cfg80211_realtek.ko \
-                                kernel_imx/drivers/net/wireless/rtlwifi/rtl8821as/8821as.ko:system/lib/modules/8821as.ko \
-                                kernel_imx/drivers/net/wireless/bcmdhd/bcmdhd.ko:system/lib/modules/bcmdhd.ko
 
-BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
-BOARD_HOSTAPD_DRIVER         := NL80211
+#
+# WLAN settings. Realtek RTL8188CUS chipset tested and supported
+# D-Link N 150 Micro USB Adapter (DWA-121) has been used
+#
 
-BOARD_HOSTAPD_PRIVATE_LIB_RTL               := lib_driver_cmd_rtl
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
-BOARD_HOSTAPD_PRIVATE_LIB_BCM               := lib_driver_cmd_bcmdhd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM        := lib_driver_cmd_bcmdhd
-#for intel vendor
-ifeq ($(BOARD_WLAN_VENDOR),INTEL)
-BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd
-WPA_SUPPLICANT_VERSION                   := VER_0_8_X
-HOSTAPD_VERSION                          := VER_0_8_X
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd_intel
-WIFI_DRIVER_MODULE_PATH                  := "/system/lib/modules/iwlagn.ko"
-WIFI_DRIVER_MODULE_NAME                  := "iwlagn"
-WIFI_DRIVER_MODULE_PATH                  ?= auto
-endif
+BOARD_HAVE_WIFI                  := true
+EA_BOARD_IGNORE_NL80211_CMD := true
+
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL := lib_driver_cmd_rtl
+BOARD_WLAN_DEVICE                := REALTEK
 
 BOARD_SUPPORT_BCM_WIFI := false
-
-WIFI_DRIVER_FW_PATH_STA 	:= "/system/etc/firmware/bcm/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_P2P 	:= "/system/etc/firmware/bcm/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_AP  	:= "/system/etc/firmware/bcm/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_PARAM 	:= "/sys/module/bcmdhd/parameters/firmware_path"
 
 BOARD_MODEM_VENDOR := AMAZON
 
@@ -93,8 +72,7 @@ TARGET_BOARD_DTS_CONFIG := imx7d:imx7dea-ucom-kit-lvds.dtb
 TARGET_KERNEL_DEFCONF := imx6_ea_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
-       device/fsl/imx7/sepolicy \
-       device/fsl/sabresd_7d/sepolicy
+       device/embeddedartists/imx7dea_ucom_kit/sepolicy
 BOARD_SEPOLICY_UNION := \
        domain.te \
        system_app.te \
