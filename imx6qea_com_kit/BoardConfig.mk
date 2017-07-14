@@ -4,19 +4,29 @@
 
 include device/fsl/imx6/soc/imx6dq.mk
 export BUILD_ID=1.0.0
-export BUILD_NUMBER=20160209
+export BUILD_NUMBER=20170705
 include device/embeddedartists/imx6qea_com_kit/BoardConfigCommon.mk
 
-include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
+#AR include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 # sabresd_6dq default target for EXT4
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
+ADDITIONAL_BUILD_PROPERTIES += \
+                        ro.internel.storage_size=/sys/block/mmcblk3/size \
+                        ro.boot.storage_type=emmc \
+                        ro.frp.pst=/dev/block/mmcblk3p12
+
 TARGET_RECOVERY_FSTAB = device/embeddedartists/imx6qea_com_kit/fstab.freescale
+# build for ext4
+PRODUCT_COPY_FILES +=   \
+        device/embeddedartists/imx6qea_com_kit/fstab.freescale:root/fstab.freescale
 
 
 TARGET_BOOTLOADER_BOARD_NAME := IMX6QEA_COM_KIT
 PRODUCT_MODEL := IMX6QEA_COM_KIT
+
+TARGET_BOOTLOADER_POSTFIX := imx
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx6
 
@@ -63,7 +73,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale vmalloc=256M cma=384M video=mxcfb0:dev=ldb,if=RGB666
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=448M
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
@@ -84,30 +94,31 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 TARGET_BOOTLOADER_CONFIG := imx6q:mx6qea-com-android_config
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6qea-com-kit.dtb
 
-TARGET_KERNEL_DEFCONF := imx6_ea_android_defconfig
+TARGET_KERNEL_DEFCONF := ea_imx_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/embeddedartists/imx6qea_com_kit/sepolicy
 
-BOARD_SEPOLICY_UNION := \
-       domain.te \
-       system_app.te \
-       system_server.te \
-       untrusted_app.te \
-       sensors.te \
-       init_shell.te \
-       bluetooth.te \
-       kernel.te \
-       mediaserver.te \
-       file_contexts \
-       genfs_contexts \
-       fs_use  \
-       rild.te \
-       init.te \
-       netd.te \
-       bootanim.te \
-       dnsmasq.te \
-       recovery.te \
-       device.te \
-       zygote.te
+#AR BOARD_SEPOLICY_UNION := \
+#AR        domain.te \
+#AR        system_app.te \
+#AR        system_server.te \
+#AR        untrusted_app.te \
+#AR        sensors.te \
+#AR        init_shell.te \
+#AR        bluetooth.te \
+#AR        kernel.te \
+#AR        mediaserver.te \
+#AR        file_contexts \
+#AR        genfs_contexts \
+#AR        fs_use  \
+#AR        rild.te \
+#AR        init.te \
+#AR        netd.te \
+#AR        bootanim.te \
+#AR        dnsmasq.te \
+#AR        recovery.te \
+#AR        device.te \
+#AR        zygote.te
 
+TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

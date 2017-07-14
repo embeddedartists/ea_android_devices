@@ -20,13 +20,16 @@ PRODUCT_PACKAGES += \
 	CactusPlayer                            \
 	WfdSink                                 \
 	wfd                                     \
-    A2dpSinkApp                             \
+	A2dpSinkApp                             \
 	ethernet                                \
 	libfsl_wfd.so                           \
+	libfsl_wfd				\
+	libpxp					\
 	fsl.imx.jar                             \
 	libfsl_hdcp_blob.so                     \
+	libfsl_hdcp_blob			\
 	libstagefright_hdcp.so                  \
-	hwcomposer_fsl.imx6.so                  \
+	libstagefright_hdcp			\
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\
@@ -47,12 +50,8 @@ PRODUCT_PACKAGES += \
 	p2p_supplicant_overlay.conf			\
 	wpa_supplicant_overlay.conf			\
     p2p_supplicant_advance_overlay.conf \
-	dispd					\
 	ts_calibrator				\
-	libion                                  \
-	display_mode_fb0.conf                   \
-	display_mode_fb2.conf                   \
-	display_mode_fb4.conf
+	libion
 
 #FREESCALE_EXTENDED
 PRODUCT_PACKAGES += freescale-extended 		\
@@ -82,9 +81,9 @@ PRODUCT_PACKAGES += \
 	hostapd_cli
 
 # keyboard mapping files.
-PRODUCT_PACKAGES += \
-	Dell_Dell_USB_Keyboard.kcm		\
-	mxckpd.kcm				\
+#AR PRODUCT_PACKAGES += \
+#AR 	Dell_Dell_USB_Keyboard.kcm		\
+#AR 	mxckpd.kcm				\
 
 #audio related lib
 PRODUCT_PACKAGES += \
@@ -114,8 +113,7 @@ PRODUCT_PACKAGES += \
 	audio.r_submix.default			\
 	libbt-vendor				\
 	libbt-vendor-broadcom		\
-	magd                                    \
-	consumerir.imx6
+	magd
 
 
 # Freescale VPU firmware files.
@@ -124,46 +122,24 @@ PRODUCT_PACKAGES += \
 	vpu_fw_imx6q.bin			\
 	vpu_fw_imx6d.bin			\
 
-# Atheros wifi firmwre files.
 PRODUCT_PACKAGES += \
-	fw-3					\
-	bdata					\
-	athtcmd_ram				\
-	nullTestFlow				\
-	cfg80211.ko				\
-	compat.ko				\
-	ath6kl_sdio.ko				\
-	check_wifi_mac.sh
-
-# Atheros wifi tool
-PRODUCT_PACKAGES += \
-	abtfilt					\
-	artagent				\
-	ath6kl-fwlog-record			\
-	athtestcmd				\
-	psatUtil				\
-	wmiconfig
-
-# Intel PCIE wifi firmware
-PRODUCT_PACKAGES += \
-	iwlwifi-6000-4.ucode			\
-	iwlwifi-5000-5.ucode			\
-	iwlagn.ko
+    slideshow \
+    verity_warning_images
 
 # drm related lib
 PRODUCT_PACKAGES += \
-	drmserver                   		\
-	libdrmframework_jni         		\
-	libdrmframework             		\
-	libdrmpassthruplugin        		\
-	libfwdlockengine            		\
+        drmserver                               \
+        libdrmframework_jni                     \
+        libdrmframework                         \
+        libdrmpassthruplugin                    \
+        libfwdlockengine                        \
 # power tool
 PRODUCT_PACKAGES += \
-	powerdebug
+        powerdebug
 
 # gpu debug tool
 PRODUCT_PACKAGES += \
-	gmem_info
+        gmem_info
 
 # Omx related libs, please align to device/fsl/proprietary/omx/fsl-omx.mk
 omx_libs := \
@@ -173,6 +149,7 @@ omx_libs := \
 	fslomx.cfg					\
 	media_profiles.xml				\
 	media_codecs.xml				\
+	media_codecs_performance.xml    \
 	ComponentRegistry.txt				\
 	lib_omx_player_arm11_elinux			 \
 	lib_omx_client_arm11_elinux			\
@@ -321,7 +298,6 @@ PRODUCT_AAPT_CONFIG := normal mdpi
 
 # ril related libs
 PRODUCT_PACKAGES += \
-	libreference-ril-zte.so \
 	libruntime-ril-port
 
 PRODUCT_PACKAGES += \
@@ -346,10 +322,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx6/etc/ueventd.freescale.rc:root/ueventd.freescale.rc \
 	device/fsl/imx6/etc/ppp/init.gprs-pppd:system/etc/ppp/init.gprs-pppd \
 	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf \
-        device/fsl/imx6/init.recovery.imx6.rc:root/init.recovery.imx6.rc \
-	device/fsl/common/display/display_mode_fb0.conf:system/etc/display_mode_fb0.conf \
-	device/fsl/common/display/display_mode_fb2.conf:system/etc/display_mode_fb2.conf \
-	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf \
+        device/fsl/imx6/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     device/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     device/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml
@@ -358,11 +331,31 @@ PRODUCT_COPY_FILES +=	\
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # for property
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
+
+# enlarge media max memory size to 3G.
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.media.maxmem=3221225472
+
+#this must be set before including tablet-7in-hdpi-1024-dalvik-heap.mk
+PRODUCT_PROPERTY_OVERRIDES += \
+        dalvik.vm.heapgrowthlimit=128m
 
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
         device/fsl/common/security/testkey
+
+# In userdebug, add minidebug info the the boot image and the system server to support
+# diagnosing native crashes.
+ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
+    # Boot image.
+    PRODUCT_DEX_PREOPT_BOOT_FLAGS += --generate-mini-debug-info
+    # System server and some of its services.
+    # Note: we cannot use PRODUCT_SYSTEM_SERVER_JARS, as it has not been expanded at this point.
+    $(call add-product-dex-preopt-module-config,services,--generate-mini-debug-info)
+    $(call add-product-dex-preopt-module-config,wifi-service,--generate-mini-debug-info)
+endif
+
 
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
