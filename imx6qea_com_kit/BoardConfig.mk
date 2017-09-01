@@ -92,7 +92,7 @@ IMX_CAMERA_HAL_V2 := false
 TARGET_VSYNC_DIRECT_REFRESH := true
 
 TARGET_BOOTLOADER_CONFIG := imx6q:mx6qea-com-android_config
-TARGET_BOARD_DTS_CONFIG := imx6q:imx6qea-com-kit.dtb
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6qea-com-kit-lvds.dtb
 
 TARGET_KERNEL_DEFCONF := ea_imx_android_defconfig
 

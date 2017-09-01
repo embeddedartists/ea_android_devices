@@ -1,0 +1,64 @@
+# This is a FSL Android Reference Design platform based on i.MX6Q ARD board
+# It will inherit from FSL core product which in turn inherit from Google generic
+
+$(call inherit-product, device/embeddedartists/imx7dea_com_kit/imx7.mk)
+$(call inherit-product-if-exists,vendor/google/products/gms.mk)
+
+ifneq ($(wildcard device/embeddedartists/imx7dea_com_kit/fstab.freescale),)
+$(shell touch device/embeddedartists/imx7dea_com_kit/fstab.freescale)
+endif
+
+# setup dm-verity configs.
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk2p5
+ $(call inherit-product, build/target/product/verity.mk)
+
+# Overrides
+PRODUCT_NAME := imx7dea_com_kit
+PRODUCT_DEVICE := imx7dea_com_kit
+PRODUCT_BRAND := embeddedartists
+PRODUCT_MANUFACTURER := embeddedartists
+
+
+PRODUCT_COPY_FILES += \
+	device/embeddedartists/imx7dea_com_kit/init.rc:root/init.freescale.rc \
+	device/embeddedartists/imx7dea_com_kit/audio_policy.conf:system/etc/audio_policy.conf \
+	device/embeddedartists/imx7dea_com_kit/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+	device/embeddedartists/imx6qea_com_kit/ar1021_I2C_Touchscreen.idc:system/usr/idc/ar1021_I2C_Touchscreen.idc
+
+#PRODUCT_COPY_FILES +=   \
+#        device/embeddedartists/firmware/rtlwifi/rtl8192cufw_TMSC.bin:system/vendor/firmware/rtlwifi/rtl8192cufw_TMSC.bin \
+#        device/embeddedartists/common/wlan/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+#	device/embeddedartists/common/wlan/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+
+
+DEVICE_PACKAGE_OVERLAYS := device/embeddedartists/imx7dea_com_kit/overlay
+
+PRODUCT_CHARACTERISTICS := tablet
+
+PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi
+
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/android.hardware.audio.output.xml:system/etc/permissions/android.hardware.audio.output.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+	frameworks/native/data/etc/android.hardware.screen.portrait.xml:system/etc/permissions/android.hardware.screen.portrait.xml \
+	frameworks/native/data/etc/android.hardware.screen.landscape.xml:system/etc/permissions/android.hardware.screen.landscape.xml \
+	frameworks/native/data/etc/android.software.app_widgets.xml:system/etc/permissions/android.software.app_widgets.xml \
+	frameworks/native/data/etc/android.software.voice_recognizers.xml:system/etc/permissions/android.software.voice_recognizers.xml \
+	frameworks/native/data/etc/android.software.backup.xml:system/etc/permissions/android.software.backup.xml \
+	frameworks/native/data/etc/android.software.print.xml:system/etc/permissions/android.software.print.xml \
+	frameworks/native/data/etc/android.software.device_admin.xml:system/etc/permissions/android.software.device_admin.xml \
+#	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
+	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+	device/embeddedartists/imx7dea_com_kit/required_hardware.xml:system/etc/permissions/required_hardware.xml
+
+PRODUCT_PACKAGES += \
+        libg2d
+

@@ -19,22 +19,16 @@ PRODUCT_BRAND := embeddedartists
 PRODUCT_MANUFACTURER := embeddedartists
 
 
-
-PRODUCT_PACKAGES += \
-	rtl_wpa_supplicant
-
-
-
 PRODUCT_COPY_FILES += \
 	device/embeddedartists/imx7dea_ucom_kit/init.rc:root/init.freescale.rc \
 	device/embeddedartists/imx7dea_ucom_kit/audio_policy.conf:system/etc/audio_policy.conf \
 	device/embeddedartists/imx7dea_ucom_kit/audio_effects.conf:system/vendor/etc/audio_effects.conf \
 	device/embeddedartists/imx6qea_com_kit/ar1021_I2C_Touchscreen.idc:system/usr/idc/ar1021_I2C_Touchscreen.idc
 
-PRODUCT_COPY_FILES +=   \
-        device/embeddedartists/firmware/rtlwifi/rtl8192cufw_TMSC.bin:system/vendor/firmware/rtlwifi/rtl8192cufw_TMSC.bin \
-        device/embeddedartists/common/wlan/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-	device/embeddedartists/common/wlan/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+#PRODUCT_COPY_FILES +=   \
+#        device/embeddedartists/firmware/rtlwifi/rtl8192cufw_TMSC.bin:system/vendor/firmware/rtlwifi/rtl8192cufw_TMSC.bin \
+#        device/embeddedartists/common/wlan/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+#	device/embeddedartists/common/wlan/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
 
 DEVICE_PACKAGE_OVERLAYS := device/embeddedartists/imx7dea_ucom_kit/overlay
@@ -55,7 +49,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.backup.xml:system/etc/permissions/android.software.backup.xml \
 	frameworks/native/data/etc/android.software.print.xml:system/etc/permissions/android.software.print.xml \
 	frameworks/native/data/etc/android.software.device_admin.xml:system/etc/permissions/android.software.device_admin.xml \
-	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+#	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
 	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
 	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
@@ -64,3 +58,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	device/embeddedartists/imx7dea_ucom_kit/required_hardware.xml:system/etc/permissions/required_hardware.xml
+
+PRODUCT_PACKAGES += \
+        libg2d
+
