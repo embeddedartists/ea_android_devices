@@ -10,6 +10,8 @@ PRODUCT_MANUFACTURER := embeddedartists
 
 PRODUCT_COPY_FILES += \
 	device/embeddedartists/imx6qea_com_kit/init.rc:root/init.freescale.rc \
+        device/fsl/sabresd_6dq/init.i.MX6Q.rc:root/init.freescale.i.MX6Q.rc \
+        device/fsl/sabresd_6dq/init.i.MX6DL.rc:root/init.freescale.i.MX6DL.rc \
 	device/embeddedartists/imx6qea_com_kit/fstab.freescale:root/fstab.freescale \
 	device/embeddedartists/imx6qea_com_kit/ar1021_I2C_Touchscreen.idc:system/usr/idc/ar1021_I2C_Touchscreen.idc
 
